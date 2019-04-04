@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductsService } from './services/products.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -36,9 +38,10 @@ import { ProductComponent } from './pages/product/product.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ProductsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
