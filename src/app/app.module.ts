@@ -19,6 +19,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProductComponent } from './pages/product/product.component';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -34,14 +35,14 @@ import { ProductComponent } from './pages/product/product.component';
     RegisterComponent,
     ProductComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProductsService],
+  providers: [ProductsService,CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
