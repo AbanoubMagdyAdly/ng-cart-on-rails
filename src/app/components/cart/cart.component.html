@@ -1,3 +1,41 @@
-<p>
-  cart works!
-</p>
+<div class="mb-5">
+    <table id="viewCartTable" class="table table-striped">
+      <thead>
+          <tr>
+              <th scope="col" width="10%"></th>
+              <th scope="col" width="20%">Product</th>
+              <th scope="col" width="10%">Price</th>
+              <th scope="col" width="10%">Ordered</th>
+              <th scope="col" width="15%">Add/Remove</th>
+              <th scope="col" width="15%">Total Price</th>
+              <th scope="col" width="10%"></th>
+          </tr>
+      </thead>
+      <tbody id="cartTableBody">
+      <tr *ngFor="let cartProduct of cart" id="tableRow">
+        <th scope="row">
+          <a class="viewMore btn">
+            <img src="{{cartProduct.product.picUrl}}" class="prodImg card-img-top" style="width:4rem;height: 4rem">
+          </a>
+        </th>
+        <td class="prodTitle">{{cartProduct.product.name}}</td>
+        <td class="prodPrice">${{cartProduct.product.price}}</td>
+        <td class="quantityToBuy">{{cartProduct.count}}</td>
+        <td>
+            <ul class="pagination">
+                <li><button (click)="addToCart(cartProduct.product)" class="page-link addOneToCart">+</button></li>
+                <li><button (click)="removeOneFromCart(cartProduct.product)" class="page-link text-danger removeOneFromCart">-</button></li>
+            </ul>
+        </td>
+        <td class="totalProdPrice">${{cartProduct.count * cartProduct.product.price}}</td>
+        <td class="removeButton">
+            <ul class="pagination">
+                <li>
+                    <button (click)="removeFromCart(cartProduct.product)" class="btn btn-danger">✘</button> 
+                </li>
+            </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
