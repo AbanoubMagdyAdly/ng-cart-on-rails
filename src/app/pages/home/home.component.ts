@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     this.productsService.getProducts().subscribe(products=>{
       products.forEach(product => {
         this.products.push({
+            id:          product['ProductId'],
             name:        product['Name'],
             price:       product['Price'],
             picUrl:      product['ProductPicUrl'],
