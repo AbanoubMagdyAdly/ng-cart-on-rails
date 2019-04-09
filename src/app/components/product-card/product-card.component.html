@@ -5,7 +5,7 @@
             <h5 class="prodTitle card-title">{{product.name}}</h5>
             <p class="prodDesc card-text">{{product.description}}</p>
             <p class="prodPrice card-text text-danger d-inline float-left">${{product.price}}</p>
-            <button class="prodToCart btn btn-primary d-inline float-right">Add to cart <img src="./assets/media/cart.png"></button>
+            <button class="prodToCart btn btn-primary d-inline float-right" (click)="onAddToCart(product)">Add to cart <img src="./assets/media/cart.png"></button>
         </div>
     </div>
 </div>
