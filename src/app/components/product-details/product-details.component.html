@@ -1,3 +1,17 @@
-<p>
-  product-details works!
-</p>
+<div id="productViewDetails" class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mx-auto ">
+        <img src="{{product.picUrl}}"  class="card-img-top prodImg">
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <p class="prodTitle card-text">{{product.name}}</p>
+        <p class="prodDesc card-text">{{product.description}}</p>
+    </div>
+    <div class="card col-lg-3 col-md-6 col-sm-6 col-12 mx-auto rounded-corners w18">
+        <div class="card-body ">
+            <p class="">Ordered:<span class="Ordered ml-2 text-primary">5</span>
+            <hr>
+            <p>{{product.id}}<span class="float-right prodPrice card-text text-danger">${{product.price}}</span></p>
+            <button class="prodToCart btn btn-primary btn-lg btn-block mt-3 rounded-corners">Add to cart <img src="./assets/media/cart.png"></button>
+        </div>
+    </div>
+</div>
