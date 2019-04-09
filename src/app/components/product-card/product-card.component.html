@@ -1,6 +1,6 @@
 <div class="col-lg-3 col-md-6 col-sm-6 col-12 mx-auto mb-3 ">
     <div class="card w18">
-        <a class="viewMore btn"><img src="{{product.picUrl}}" class="card-img-top prodImg" alt="..."></a>
+        <a class="viewMore btn"><img src="{{product.picUrl}}" (click)="showProduct(id)" class="card-img-top prodImg clickable" alt="..."></a>
         <div class="card-body">
             <h5 class="prodTitle card-title">{{product.name}}</h5>
             <p class="prodDesc card-text">{{product.description}}</p>
