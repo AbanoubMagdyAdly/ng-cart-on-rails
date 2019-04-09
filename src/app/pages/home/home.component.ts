@@ -13,16 +13,6 @@ export class HomeComponent implements OnInit {
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.productsService.getProducts().subscribe(products=>{
-      products.forEach(product => {
-        this.products.push({
-            id:          product['ProductId'],
-            name:        product['Name'],
-            price:       product['Price'],
-            picUrl:      product['ProductPicUrl'],
-            description: product['Description'],
-        })
-      });
-    })
+    this.products = this.productsService.getProducts();
   }
 }
