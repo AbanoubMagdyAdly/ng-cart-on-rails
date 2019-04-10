@@ -8,13 +8,18 @@ import { CartProduct } from 'src/app/models/cart';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
+
 export class CartComponent implements OnInit {
   cart:Array<CartProduct>;
+  displayedColumns: string[] = ['picUrl','id','name','addRemove','price','count','totalPrice'];
+  dataSource;
+
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
     this.cartService.getCart().subscribe(cart => {
       this.cart = cart;
+      this.dataSource = cart;
     });
   }
   
