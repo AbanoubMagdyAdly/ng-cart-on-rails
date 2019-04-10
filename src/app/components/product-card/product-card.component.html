@@ -1,11 +1,20 @@
-<div class="col-lg-3 col-md-6 col-sm-6 col-12 mx-auto mb-3 ">
-    <div class="card w18">
-        <a class="viewMore btn"><img src="{{product.picUrl}}" (click)="showProduct(id)" class="card-img-top prodImg clickable" alt="..."></a>
-        <div class="card-body">
-            <h5 class="prodTitle card-title">{{product.name}}</h5>
-            <p class="prodDesc card-text">{{product.description}}</p>
-            <p class="prodPrice card-text text-danger d-inline float-left">${{product.price}}</p>
-            <button class="prodToCart btn btn-primary d-inline float-right" (click)="onAddToCart(product)">Add to cart <img src="./assets/media/cart.png"></button>
-        </div>
+<mat-card class="card">
+    <mat-card-header class="card-header">
+        <mat-card-title >{{product.name}}</mat-card-title>
+        <mat-card-subtitle>{{product.id}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="card-main">
+        <img mat-card-image src="{{product.picUrl}}" alt="Photo of a Shiba Inu">
+        <mat-card-content class="main-description">
+            {{product.description}}
+        </mat-card-content>
     </div>
-</div>
+    <mat-card-actions>
+        <button  mat-flat-button color="primary" (click)="onAddToCart(product)">
+                <mat-icon>add</mat-icon>Add to cart
+        </button>
+        <button class="float-right" mat-fab color="warn">
+            <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

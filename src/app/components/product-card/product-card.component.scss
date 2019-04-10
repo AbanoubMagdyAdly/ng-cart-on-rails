@@ -1,0 +1,42 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+.card {
+    width: 20rem;                 /* Set width of cards */
+    display: flex;                /* Children use Flexbox */
+    flex-direction: column;       /* Rotate Axis */
+    border: 1px solid rgb(255, 255, 255);    /* Set up Border */
+    border-radius: 4px;           /* Slightly Curve edges */
+    overflow: hidden;             /* Fixes the corners */
+    margin: 5px;                  /* Add space between cards */
+}
+
+.card-header {
+    background-color: rgba(255, 255, 255, 0.609);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+}
+
+.card-main {
+    display: flex;              /* Children use Flexbox */
+    flex-direction: column;     /* Rotate Axis to Vertical */
+    justify-content: center;    /* Group Children in Center */
+    align-items: center;        /* Group Children in Center (on cross axis) */
+    padding: 1rem 0;            /* Add padding to the top/bottom */
+}
+  
+img{
+    height: 15rem;
+    width: 100%;
+}
+
+.prodDescription{
+    overflow: hidden;
+}
+
+.cardName{
+    overflow: hidden;
+}
