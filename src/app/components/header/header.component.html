@@ -8,32 +8,28 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <nav>
-                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">
+                  <img src="/assets/media/adidas_white.png" style="width:60px;height:auto"></a>
               </nav>
             </li>
-          <li class="nav-item">
-            <nav>
-              <a class="nav-link" routerLink="/cart" routerLinkActive="active">Cart</a>
-            </nav>
-          </li>
           
         </ul>
-        <span class="navbar-text text-secondary nav-link">
+        <span class="navbar-text text-white nav-link">
           <app-cart-mini></app-cart-mini>
         </span>
 
         <ng-container *ngIf="isLoggedIn(); then loggedIn; else loggedOut"></ng-container>
         <ng-template #loggedIn>
             <span class="nav-item">
-                <a class="nav-link text-secondary" (click)="onLogout()">Logout</a>
+                <a class="nav-link text-white" (click)="onLogout()">Logout</a>
             </span>
         </ng-template>
         <ng-template #loggedOut>
           <span class="nav-item">
-            <a class="nav-link text-secondary" [routerLink]="['/login']">Login</a>
+            <a class="nav-link text-white" [routerLink]="['/login']">Login</a>
           </span>
           <span class="nav-item">
-              <a class="nav-link text-secondary" [routerLink]="['/register']">Register</a>
+              <a class="nav-link text-white" [routerLink]="['/register']">Register</a>
             </span>
         </ng-template>
       </div>

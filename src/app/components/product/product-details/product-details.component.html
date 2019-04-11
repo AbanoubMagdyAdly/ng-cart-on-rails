@@ -6,7 +6,12 @@
     <h2>{{product.name}}</h2>
     <h6>{{product.id}}</h6>
     <p>{{product.description}}</p>
-    <button mat-button (click)="onAddToCart(product)">Add to cart</button>
-    <button mat-button>SHARE</button>
+    <!-- <button mat-button (click)="onAddToCart(product)">Add to cart</button> -->
+    <button class="btn"  mat-flat-button color="primary" (click)="onAddToCart(product)">
+        <mat-icon>add_shopping_cart</mat-icon>Add to cart
+    </button>
+    <button class="ml-2" mat-icon-button color="warn">
+        <mat-icon class="btn-heart" aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+    </button>
   </div>
 </div>
