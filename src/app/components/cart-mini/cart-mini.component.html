@@ -1,24 +1,33 @@
 <div class="row">
-    <div ngbDropdown class="d-inline-block" autoClose="outside">
+    <div ngbDropdown class="d-inline-block" autoClose="outside" >
         <button class="btn cart-btn" id="dropdownForm1" ngbDropdownToggle>  <mat-icon>shopping_cart</mat-icon>{{cartCount}}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownManual">
-          <div
-          *ngFor="let cartProduct of cart| slice:0:5;"
-           ngbDropdownItem 
-           >
-           <li class="inline-block">
-              {{cartProduct.product.name}}
-           </li>
-           <li class="d-inline-block badge badge-primary float-left">
-              <span >Ordered: {{cartProduct.count}}</span >
-                
-           </li>
-           <li class="d-inline-block float-right">
-              <button type="button" class="close" aria-label="Close" (click)="removeFromCart(cartProduct.product)">
-                <mat-icon class="delete-icon">delete_forever</mat-icon>
-              </button>
-           </li>
-          </div>
-        </div>
-    </div>
+           <div class="container">
+               <div class="shopping-cart">
+                 <ul class="shopping-cart-items">
+                   <li class="clearfix" *ngFor="let cartProduct of cart| slice:0:5;">
+                     <img src="{{cartProduct.product.picUrl}}" alt="item1" />
+                     <span class="item-name">{{cartProduct.product.name}}</span>
+                     <span class="item-price">${{cartProduct.product.price}}</span>
+                     <span class="item-quantity">Ordered: {{cartProduct.count}}</span>
+                     <button class="item-delete btn btn-danger" (click)="removeFromCart(cartProduct.product)">&#x2718; </button>
+                   </li>
+                 </ul>
+                 <a href="#" class="button">Checkout<mat-icon class="material-icons"> beenhere</mat-icon></a>
+               </div> <!--end shopping-cart -->
+             </div> <!--end container -->
+      </div>
+   </div>
 </div>
+    
+
+<!-- <li class="inline-block">
+   
+</li>
+<li class="d-inline-block badge badge-primary float-left">
+   <span >Ordered: {{cartProduct.count}}</span >
+     
+</li>
+<li class="d-inline-block float-right">
+   
+</li> -->

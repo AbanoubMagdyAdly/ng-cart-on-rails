@@ -1,6 +1,6 @@
 table {
     width: 100%;
-  }
+}
 
 .prodImg{
     max-width: 5rem;
@@ -9,4 +9,34 @@ table {
 .mat-column {
     flex: 0 0 25% !important;
     min-width: 104px !important;
+}
+
+.mat-cell{
+    padding: 1rem;
+}
+
+.button {
+    margin: 0 25rem;
+    background: rgba(13, 138, 240, 0.753);
+    color:white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    border-radius: 3px;
+    font-size: 16px;
+    &:hover {
+      background: lighten(rgba(13, 138, 240, 0.753), 3%);
+    }
+}
+.footer-row{
+    margin: 0 25rem;
+    color:rgb(216, 18, 18);
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    border-radius: 3px;
+    font-size: 16px;
+   
 }
