@@ -10,8 +10,10 @@ import { CartProduct } from 'src/app/models/cart';
 })
 
 export class CartComponent implements OnInit {
+  totalPrice: number = 0;
   cart:Array<CartProduct>;
-  displayedColumns: string[] = ['picUrl','id','name','addRemove','price','count','totalPrice'];
+  
+  displayedColumns: string[] = ['picUrl','id','name','addRemove','price','count','totalPrice','delete'];
   dataSource;
 
   constructor(private cartService: CartService) { }
@@ -21,6 +23,9 @@ export class CartComponent implements OnInit {
       this.cart = cart;
       this.dataSource = cart;
     });
+    this.cartService.getCartTotalPrice().subscribe(totalPrice => 
+      this.totalPrice = totalPrice
+    );
   }
   
   addToCart(product:Product){
