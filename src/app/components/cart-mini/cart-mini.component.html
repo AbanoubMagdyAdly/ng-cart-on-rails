@@ -13,7 +13,7 @@
                      <button class="item-delete btn btn-danger" (click)="removeFromCart(cartProduct.product)">&#x2718; </button>
                    </li>
                  </ul>
-                 <a href="#" class="button">Checkout<mat-icon class="material-icons"> beenhere</mat-icon></a>
+                 <a [routerLink]="['/cart']" class="button">View Cart</a>
                </div> <!--end shopping-cart -->
              </div> <!--end container -->
       </div>

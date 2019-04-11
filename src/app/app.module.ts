@@ -20,7 +20,7 @@ import { CartService } from './services/cart.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule, MatCardModule, MatTableModule, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule, MatCardModule, MatTableModule, MatGridListModule, MatPaginatorModule } from '@angular/material';
 import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
@@ -54,7 +54,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     MatCardModule,
     MatTableModule,
     MatGridListModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatPaginatorModule 
   ],
   providers: [ProductsService,CartService],
   bootstrap: [AppComponent]
