@@ -9,18 +9,19 @@ import { ProductsService } from './services/products.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductCardComponent } from './components/product/product-card/product-card.component';
+import { ProductDetailsComponent } from "./components/product/product-details/product-details.component";
 import { CartMiniComponent } from './components/cart-mini/cart-mini.component';
 import { CartComponent } from './components/cart/cart.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
-
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { ProductComponent } from './pages/product/product.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { CartService } from './services/cart.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule, MatCardModule, MatTableModule, MatGridListModule, MatPaginatorModule } from '@angular/material';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
   declarations: [
@@ -34,15 +35,27 @@ import { CartService } from './services/cart.service';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProductComponent,
-    LoginFormComponent,
-    RegisterFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatInputModule,
+    MatCardModule,
+    MatTableModule,
+    MatGridListModule,
+    ToastrModule.forRoot(),
+    MatPaginatorModule 
   ],
   providers: [ProductsService,CartService],
   bootstrap: [AppComponent]

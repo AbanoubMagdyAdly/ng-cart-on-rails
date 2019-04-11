@@ -1,41 +1,62 @@
-<div class="mb-5">
-    <table id="viewCartTable" class="table table-striped">
-      <thead>
-          <tr>
-              <th scope="col" width="10%"></th>
-              <th scope="col" width="20%">Product</th>
-              <th scope="col" width="10%">Price</th>
-              <th scope="col" width="10%">Ordered</th>
-              <th scope="col" width="15%">Add/Remove</th>
-              <th scope="col" width="15%">Total Price</th>
-              <th scope="col" width="10%"></th>
-          </tr>
-      </thead>
-      <tbody id="cartTableBody">
-      <tr *ngFor="let cartProduct of cart" id="tableRow">
-        <th scope="row">
-          <a class="viewMore btn">
-            <img src="{{cartProduct.product.picUrl}}" class="prodImg card-img-top" style="width:4rem;height: 4rem">
-          </a>
-        </th>
-        <td class="prodTitle">{{cartProduct.product.name}}</td>
-        <td class="prodPrice">${{cartProduct.product.price}}</td>
-        <td class="quantityToBuy">{{cartProduct.count}}</td>
-        <td>
-            <ul class="pagination">
-                <li><button (click)="addToCart(cartProduct.product)" class="page-link addOneToCart">+</button></li>
-                <li><button (click)="removeOneFromCart(cartProduct.product)" class="page-link text-danger removeOneFromCart">-</button></li>
-            </ul>
-        </td>
-        <td class="totalProdPrice">${{cartProduct.count * cartProduct.product.price}}</td>
-        <td class="removeButton">
-            <ul class="pagination">
-                <li>
-                    <button (click)="removeFromCart(cartProduct.product)" class="btn btn-danger">✘</button> 
-                </li>
-            </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+  <div>
+      <div *ngIf="!cart.length" class="text-center">
+         <h3>  Your cart is empty <mat-icon>shopping_cart</mat-icon></h3>
+      </div>
+      <div *ngIf="cart.length">
+          <table  mat-table [dataSource]="dataSource" class="mat-elevation-z3">
+        
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id. </th>
+                <td mat-cell *matCellDef="let cartProduct">{{cartProduct.product.id}} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name. </th>
+                <td mat-cell *matCellDef="let cartProduct"> {{cartProduct.product.name}} </td>
+              </ng-container>
+                
+              <ng-container matColumnDef="picUrl">
+                <th mat-header-cell *matHeaderCellDef> Product </th>
+                <td mat-cell *matCellDef="let cartProduct"><img class="prodImg" src={{cartProduct.product.picUrl}} ></td>
+              </ng-container>
+      
+              <ng-container matColumnDef="addRemove">
+                  <th mat-header-cell *matHeaderCellDef> Add/Remove </th>
+                  <td mat-cell *matCellDef="let cartProduct">
+                      <ul class="pagination">
+                        <li><button (click)="addToCart(cartProduct.product)" class="page-link addOneToCart">+</button></li>
+                        <li><button (click)="removeOneFromCart(cartProduct.product)" class="page-link text-danger removeOneFromCart">-</button></li>
+                      </ul>
+                  </td>
+                </ng-container>
+      
+              <ng-container matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef> Ordered </th>
+                <td mat-cell *matCellDef="let cartProduct">{{cartProduct.count}}</td>
+              </ng-container>
+      
+              <ng-container matColumnDef="totalPrice">
+                <th mat-header-cell *matHeaderCellDef> Total Price </th>
+                <td mat-cell *matCellDef="let cartProduct">${{cartProduct.count* cartProduct.product.price | number:'1.0-0'}}</td>
+              </ng-container>
+      
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price. </th>
+                <td mat-cell *matCellDef="let cartProduct">${{cartProduct.product.price}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Remove </th>
+                <td mat-cell *matCellDef="let cartProduct">
+                    <button class="item-delete btn btn-danger" (click)="removeFromCart(cartProduct.product)">&#x2718; </button>
+                </td>
+              </ng-container>
+      
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+                <!-- <div href="#" class="button mat-elevation-z3">Total Price: {{totalPrice}}</div> -->
+                <div href="#" class=" footer-row mat-elevation-z3">Total Price: {{totalPrice}}</div>
+                <a href="#" class="button mat-elevation-z3">Checkout<mat-icon class="material-icons"> beenhere</mat-icon></a>
+      </div>
+    </div>

@@ -1,29 +1,37 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <nav class="navbar navbar-expand-lg navbar-dark mb-5 float-bottom">
     <div class="container">
-      <a class="navbar-brand  text-primary " href="#">NG-Commerce</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Cart</a>
-          </li>
+            <li class="nav-item">
+              <nav>
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">
+                  <img src="/assets/media/adidas_white.png" style="width:60px;height:auto"></a>
+              </nav>
+            </li>
+          
         </ul>
-        <span class="navbar-text text-secondary nav-link">
+        <span class="navbar-text text-white nav-link">
           <app-cart-mini></app-cart-mini>
         </span>
-        
-        <span class="navbar-text text-secondary">
-          User-name
-        </span>
-        <span class="nav-item">
-          <a class="nav-link text-secondary" href="#">Logout</a>
-        </span>
+
+        <ng-container *ngIf="isLoggedIn(); then loggedIn; else loggedOut"></ng-container>
+        <ng-template #loggedIn>
+            <span class="nav-item">
+                <a class="nav-link text-white" (click)="onLogout()">Logout</a>
+            </span>
+        </ng-template>
+        <ng-template #loggedOut>
+          <span class="nav-item">
+            <a class="nav-link text-white" [routerLink]="['/login']">Login</a>
+          </span>
+          <span class="nav-item">
+              <a class="nav-link text-white" [routerLink]="['/register']">Register</a>
+            </span>
+        </ng-template>
       </div>
     </div>
   </nav>

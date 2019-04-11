@@ -1,0 +1,14 @@
+<div >
+    <mat-paginator [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent = $event;updateShownProducts()">
+    </mat-paginator>
+  <div class="row justify-content-center" >
+    <app-product-card fxLayout="row" fxLayoutAlign="space-between center"
+      *ngFor="let product of shownProducts; let i=index" 
+      [product]="product" 
+      [id]=i >
+    </app-product-card>
+  </div>
+</div>
