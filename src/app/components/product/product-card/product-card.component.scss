@@ -1,9 +1,5 @@
-body {
-    font-family: 'Open Sans', sans-serif;
-  }
-  
 .card {
-    width: 20rem;                 /* Set width of cards */
+    width: 18rem;                 /* Set width of cards */
     display: flex;                /* Children use Flexbox */
     flex-direction: column;       /* Rotate Axis */
     border: 1px solid rgb(255, 255, 255);    /* Set up Border */
@@ -39,4 +35,12 @@ img{
 
 .cardName{
     overflow: hidden;
+}
+
+.btn{
+    background-color: rgba(13, 138, 240, 0.753);
+}
+
+.btn-heart{
+    transform: scale(1.5);
 }

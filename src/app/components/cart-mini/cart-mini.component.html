@@ -1,6 +1,6 @@
 <div class="row">
     <div ngbDropdown class="d-inline-block" autoClose="outside">
-        <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>  Items: {{cartCount}}</button>
+        <button class="btn cart-btn" id="dropdownForm1" ngbDropdownToggle>  <mat-icon>shopping_cart</mat-icon>{{cartCount}}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownManual">
           <div
           *ngFor="let cartProduct of cart| slice:0:5;"
@@ -10,11 +10,12 @@
               {{cartProduct.product.name}}
            </li>
            <li class="d-inline-block badge badge-primary float-left">
-              <span >ordered: {{cartProduct.count}}</span >
+              <span >Ordered: {{cartProduct.count}}</span >
+                
            </li>
            <li class="d-inline-block float-right">
-              <button style="color: red;" type="button" class="close" aria-label="Close" (click)="removeFromCart(cartProduct.product)">
-                  <span aria-hidden="true">&times;</span>
+              <button type="button" class="close" aria-label="Close" (click)="removeFromCart(cartProduct.product)">
+                <mat-icon class="delete-icon">delete_forever</mat-icon>
               </button>
            </li>
           </div>

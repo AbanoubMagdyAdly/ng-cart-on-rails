@@ -2,17 +2,24 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+import { ProductComponent } from '../product.component';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent extends ProductComponent implements OnInit {
   @Input('product') product: {};
   @Input('id') id:number;
 
-  constructor(private cartService: CartService,private router: Router) { 
+  constructor(
+    toastr: ToastrManager,
+    cartService: CartService,
+    private router: Router,
+  ) { 
+    super(cartService,toastr);
   }
 
   ngOnInit() {
@@ -21,9 +28,4 @@ export class ProductCardComponent implements OnInit {
   showProduct(id:number) {
     this.router.navigate(["/products", id]);
   }
-  
-  onAddToCart(product: Product) {
-    this.cartService.manipulateCart(product, true);
-  }
-
 }

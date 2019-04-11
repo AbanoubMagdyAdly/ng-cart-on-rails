@@ -10,11 +10,14 @@
         </mat-card-content>
     </div>
     <mat-card-actions>
-        <button  mat-flat-button color="primary" (click)="onAddToCart(product)">
-                <mat-icon>add</mat-icon>Add to cart
+        <button class="btn"  mat-flat-button color="primary" (click)="onAddToCart(product)">
+                <mat-icon>add_shopping_cart</mat-icon>Add to cart
         </button>
-        <button class="float-right" mat-fab color="warn">
-            <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+        <button class="btn ml-1"  mat-flat-button color="primary" (click)="showProduct(id)">
+                View
+        </button>
+        <button class="float-right" mat-icon-button color="warn">
+            <mat-icon class="btn-heart" aria-label="Example icon-button with a heart icon">favorite</mat-icon>
         </button>
     </mat-card-actions>
 </mat-card>
