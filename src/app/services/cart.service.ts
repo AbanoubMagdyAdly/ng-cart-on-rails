@@ -8,11 +8,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class CartService {
   private cart: BehaviorSubject <Array<CartProduct>>;
-  private cartTotalPrice:number = 0;
+  private cartTotalPrice: BehaviorSubject <number>;
 
 
   constructor() { 
-    this.cart = new BehaviorSubject(this.getCartFromLocalStorage()  || [] );
+    this.cart           = new BehaviorSubject(this.getCartFromLocalStorage()  || [] );
+    this.cartTotalPrice = new BehaviorSubject(0);
+    this.updateCartTotalPrice();
   }
 
 
@@ -34,8 +36,8 @@ export class CartService {
   }
 
 
-  public getCartTotalPrice(): number {
-    return this.cartTotalPrice;
+  public getCartTotalPrice():Observable<any> {
+    return this.cartTotalPrice.asObservable();
   }
 
 
@@ -68,11 +70,13 @@ export class CartService {
 
 
   private updateCartTotalPrice() {
-    this.cartTotalPrice = 0;
+    let cartTotalPrice = 0;
 
-    this.cart.value.forEach(cartItem => {
-      this.cartTotalPrice += cartItem.product.price * cartItem.count;
-    });
+    this.cart.value.forEach(cartProduct=>{
+      cartTotalPrice += cartProduct.count * cartProduct.product.price;
+    })
+
+    this.cartTotalPrice.next(cartTotalPrice)
   }
 
 
