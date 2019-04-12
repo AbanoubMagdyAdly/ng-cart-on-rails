@@ -15,6 +15,7 @@ export class ProductComponent {
     this.cartService.manipulateCart(product, true);
     this.toastr.successToastr('One ' + product.id + ' was added to cart ', null, { animate:"fade",toastTimeout:2500 ,showCloseButton:true });
   }
+  
   addToWishlist(product:Product) {
     let success = this.wishlistservice.addToWishlist(product);
     if(success)
