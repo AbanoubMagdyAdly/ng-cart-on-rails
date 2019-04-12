@@ -11,26 +11,22 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
-    email : new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
-    password : new FormControl('', [
-      Validators.required,
-    ])
+    email : new FormControl('', [Validators.required,Validators.email,]),
+    password : new FormControl('', [Validators.required,Validators.minLength(3)])
   });
 
 
-  constructor(private router : Router, private auth:AuthService) { }
+  constructor(private router : Router, private auth:AuthService) {
+    if(this.auth.IsAuthenticated())
+      this.router.navigateByUrl("/home");
+   }
 
   ngOnInit() {
   }
 
-  get f() { return this.loginForm.controls; }
-
   onSubmit() {
     if(this.loginForm.valid){
-      this.auth.authenticate(this.f.email.value)
+      this.auth.authenticate(this.loginForm.controls.email.value)
       this.router.navigate(['/home']);
     }
   }

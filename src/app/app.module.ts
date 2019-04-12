@@ -25,6 +25,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { WishlistComponent } from './components/header/partials/wishlist/wishlist.component';
+import { InputComponent } from './components/shared/input/input.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { WishlistComponent } from './components/header/partials/wishlist/wishlis
     RegisterComponent,
     NotfoundComponent,
     WishlistComponent,
+    InputComponent,
   ],
   imports: [
     BrowserModule,

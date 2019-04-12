@@ -1,0 +1,11 @@
+<div class="form-group" [formGroup]="form">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="{{labelName | titlecase}}" [formControl]="inputName">
+        <mat-error *ngIf="inputName.errors?.required">
+            {{labelName}} is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="inputName.invalid && !inputName.errors?.required">
+            {{invalidMsg}}
+        </mat-error>
+    </mat-form-field>
+</div>

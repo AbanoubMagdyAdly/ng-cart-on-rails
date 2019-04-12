@@ -12,20 +12,20 @@ export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({
     email : new FormControl('', [Validators.required,Validators.email]),
-    password : new FormControl('', [Validators.required])
+    password : new FormControl('', [Validators.required, Validators.minLength(3)])
   });
 
-  constructor(private router : Router, private auth:AuthService) { }
+  constructor(private router : Router, private auth:AuthService) {
+    if(this.auth.IsAuthenticated())
+      this.router.navigateByUrl("/home");
+   }
 
   ngOnInit() {
   }
 
-  
-  get f() { return this.registerForm.controls; }
-
   onSubmit() {
     if(this.registerForm.valid){
-      this.auth.authenticate(this.f.email.value)
+      this.auth.authenticate(this.registerForm.controls.email.value)
       this.router.navigate(['/home']);
     }
   }
