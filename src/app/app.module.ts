@@ -13,7 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
 import { ProductDetailsComponent } from "./components/product/product-details/product-details.component";
-import { CartMiniComponent } from './components/cart-mini/cart-mini.component';
+import { CartMiniComponent } from './components/header/partials/cart-mini/cart-mini.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -24,7 +24,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule, MatCardModule, MatTableModule, MatGridListModule, MatPaginatorModule } from '@angular/material';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotfoundComponent } from './components/notfound/notfound.component';
-import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { WishlistComponent } from './components/header/partials/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     ToastrModule.forRoot(),
     MatPaginatorModule 
   ],
-  providers: [ProductsService,CartService],
+  providers: [ProductsService,CartService,WishlistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

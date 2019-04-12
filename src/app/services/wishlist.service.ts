@@ -17,17 +17,22 @@ export class WishlistService {
     this.wishlist = new BehaviorSubject(this.getWishlistFromLocalStorage()  || [] );
   }
 
-  public addToWishlist(product: Product) {
+  public addToWishlist(product: Product):boolean {
+    let success = false;
     let wishlist = this.wishlist.value;
     let prodIndex = wishlist.findIndex(
       (prod) => prod.id == product.id
     );
 
-    if (prodIndex == -1)
+    if (prodIndex == -1){
       wishlist.push(product);
+      success = true;
+    }
 
     this.updateLocalStorage();
     this.wishlist.next(wishlist)
+
+    return success;
   }
 
   public removeFromWishlist(product: Product) {
