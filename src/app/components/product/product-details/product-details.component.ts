@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductComponent } from '../product.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,16 +18,23 @@ export class ProductDetailsComponent extends ProductComponent implements OnInit 
   public product:Product;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute, 
     private prodcutService: ProductsService, 
+    wishlistservice:WishlistService,
     cartService: CartService,
-    toastr: ToastrManager
+    toastr: ToastrManager,
   ) { 
-    super(cartService,toastr);
+    super(cartService, toastr, wishlistservice);
+    this.id = this.route.params['value'].id;
+    let product = this.prodcutService.getSingleProduct(this.id);
+    
+    if(!product)
+      this.router.navigateByUrl("/404");
+
+    this.product = product
   }
 
   ngOnInit() {
-    this.id = this.route.params['value'].id;
-    this.product = this.prodcutService.getSingleProduct(this.id);
   }
 }

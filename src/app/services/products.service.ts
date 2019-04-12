@@ -14,17 +14,14 @@ export class ProductsService {
         
     let products = jsonProducts.default.prodcuts
     this.products = products.map(product => {
-        let id = product['images'][0].id
-        let fileName = product['images'][0].fileName;
-        let cdn = `http://demandware.edgesuite.net/sits_pod20-adidas/dw/image/v2/aaqx_prd/on/demandware.static/-/Sites-adidas-products/en_US/${id}/zoom/${fileName}?sh=512`
         return {
           id:          product['id'],
           name:        product['title'],
           price:       product['price'],
-          picUrl:      cdn,
+          picUrl:      this.getRandomImgUrl(product),
           description: product['description'],}
     })
-  }
+  } 
 
   getProducts(){
     return this.products
@@ -34,4 +31,11 @@ export class ProductsService {
       return this.products[id];
   }
   
+  getRandomImgUrl(product){
+    const id       = product['images'][Math.floor(Math.random() * product['images'].length)].id,
+        fileName = product['images'][Math.floor(Math.random() * product['images'].length)].fileName,
+        cdn      = `http://demandware.edgesuite.net/sits_pod20-adidas/dw/image/v2/aaqx_prd/on/demandware.static/-/Sites-adidas-products/en_US/${id}/zoom/${fileName}?sh=512`
+    return cdn;
+  }
+
 }

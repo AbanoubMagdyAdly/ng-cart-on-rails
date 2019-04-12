@@ -4,6 +4,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { ProductComponent } from '../product.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-product-card',
@@ -15,13 +16,12 @@ export class ProductCardComponent extends ProductComponent implements OnInit {
   @Input('id') id:number;
 
   constructor(
-    toastr: ToastrManager,
-    cartService: CartService,
     private router: Router,
+    toastr: ToastrManager, cartService: CartService, wishlistservice:WishlistService,
   ) { 
-    super(cartService,toastr);
+    super(cartService,toastr,wishlistservice);
   }
-
+  
   ngOnInit() {
   }
 

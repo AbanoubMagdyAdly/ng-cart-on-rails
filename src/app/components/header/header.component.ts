@@ -10,9 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   public email:string;
 
-  constructor(private router: Router, private auth:AuthService) {
-  }
-
+  constructor(private router: Router, private auth:AuthService,) { }
+  
   isLoggedIn(){
     return this.auth.IsAuthenticated();
   }

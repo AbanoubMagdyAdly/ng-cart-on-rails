@@ -17,7 +17,9 @@
         <span class="navbar-text text-white nav-link">
           <app-cart-mini></app-cart-mini>
         </span>
-
+        <span class="navbar-text text-white nav-link">
+          <app-wishlist></app-wishlist>
+        </span>
         <ng-container *ngIf="isLoggedIn(); then loggedIn; else loggedOut"></ng-container>
         <ng-template #loggedIn>
             <span class="nav-item">

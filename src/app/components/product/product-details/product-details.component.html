@@ -11,7 +11,7 @@
         <mat-icon>add_shopping_cart</mat-icon>Add to cart
     </button>
     <button class="ml-2" mat-icon-button color="warn">
-        <mat-icon class="btn-heart" aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+        <mat-icon class="btn-heart" (click)="addToWishlist(product)"  aria-label="Example icon-button with a heart icon">favorite</mat-icon>
     </button>
   </div>
 </div>
