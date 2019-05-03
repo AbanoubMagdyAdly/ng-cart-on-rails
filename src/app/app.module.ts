@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
-import { ProductDetailsComponent } from "./components/product/product-details/product-details.component";
+import { ProductDetailsComponent } from './components/product/product-details/product-details.component'
 import { CartMiniComponent } from './components/header/partials/cart-mini/cart-mini.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HomeComponent } from './components/home/home.component';
@@ -26,6 +26,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { WishlistComponent } from './components/header/partials/wishlist/wishlist.component';
 import { InputComponent } from './components/shared/input/input.component';
+import { AngularTokenModule } from 'angular-token';
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { InputComponent } from './components/shared/input/input.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularTokenModule.forRoot(environment.token_auth_config),
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
@@ -62,9 +65,9 @@ import { InputComponent } from './components/shared/input/input.component';
     MatTableModule,
     MatGridListModule,
     ToastrModule.forRoot(),
-    MatPaginatorModule 
+    MatPaginatorModule
   ],
-  providers: [ProductsService,CartService,WishlistService],
+  providers: [ProductsService,CartService,WishlistService, AngularTokenModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
