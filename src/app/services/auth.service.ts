@@ -1,32 +1,44 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { AngularTokenService } from 'angular-token';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public authenticate(email: string) {
-    window.localStorage.setItem('email', JSON.stringify(email));
+  userSignedIn$: Subject<boolean> = new Subject();
+
+  constructor(public authService: AngularTokenService) {
+
+    this.authService.validateToken().subscribe(
+      res => {
+        return res.success === true ? this.userSignedIn$.next(res.success) : this.userSignedIn$.next(false);
+      }
+    );
   }
 
-  public IsAuthenticated(): boolean {
-    return this.getNameFromLocalStorage() ? true : false;
+  registerUser(signUpData: { login: string, password: string, passwordConfirmation: string }): Observable<Response> {
+    return this.authService.registerAccount(signUpData).pipe(map(
+      res => {
+        this.userSignedIn$.next(true);
+        return res;
+      }));
   }
 
-  public logout() {
-    window.localStorage.setItem('email', '');
+  logInUser(signInData: { login: string, password: string }): Observable<Response> {
+    return this.authService.signIn(signInData).pipe(map(
+      res => {
+        this.userSignedIn$.next(true);
+        return res;
+      }
+    ));
   }
 
-  private getNameFromLocalStorage() {
-    let email: '';
-
-    try {
-      email = JSON.parse(window.localStorage.getItem('email'));
-    } catch (error) {
-      window.localStorage.setItem('email', '' );
-    }
-
-    return email;
+  logOutUser(): Observable<Response> {
+    return this.authService.signOut().pipe(map(res => {
+      this.userSignedIn$.next(false);
+      return res;
+    }));
   }
-
 }
