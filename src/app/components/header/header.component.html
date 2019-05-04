@@ -20,20 +20,19 @@
         <span class="navbar-text text-white nav-link">
           <app-wishlist></app-wishlist>
         </span>
-        <ng-container *ngIf="isLoggedIn(); then loggedIn; else loggedOut"></ng-container>
-        <ng-template #loggedIn>
-            <span class="nav-item">
-                <a class="nav-link text-white" (click)="onLogout()">Logout</a>
-            </span>
-        </ng-template>
-        <ng-template #loggedOut>
+        <ng-container *ngIf="(authService.userSignedIn$ | async)">
+          <span class="nav-item">
+              <a class="nav-link text-white" (click)="onLogout()">Logout</a>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!(authService.userSignedIn$ | async)">
           <span class="nav-item">
             <a class="nav-link text-white" [routerLink]="['/login']">Login</a>
           </span>
           <span class="nav-item">
               <a class="nav-link text-white" [routerLink]="['/register']">Register</a>
             </span>
-        </ng-template>
+        </ng-container>
       </div>
     </div>
   </nav>

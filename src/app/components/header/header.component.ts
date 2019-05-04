@@ -8,18 +8,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public email:string;
+  constructor(private router: Router, private authService: AuthService) { }
 
-  constructor(private router: Router, private auth:AuthService,) { }
-  
-  isLoggedIn(){
-    return this.auth.IsAuthenticated();
-  }
+  ngOnInit() {}
 
-  onLogout(){
-    this.auth.logout();
-    this.router.navigate['/home'];
-  }
-  ngOnInit() {
+  onLogout() {
+    this.authService.logOutUser().subscribe(() => this.router.navigate(['/home']));
   }
 }
