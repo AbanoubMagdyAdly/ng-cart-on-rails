@@ -1,20 +1,28 @@
-<div class="container">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <app-input 
-        invalidMsg="Please enter a valid email address" 
-        labelName="email" [form]="loginForm"
-        [inputName]="loginForm.controls.email" 
-        >
-      </app-input>
-      <app-input 
-        invalidMsg="Password must be between 3 and 8 characters" 
-        labelName="password" [form]="loginForm"
-        [inputName]="loginForm.controls.password" 
-        >
-    </app-input>
-      <div class="form-group">
-          <button [disabled]="loading" class="btn btn-primary">Login</button>
+<div class="row bg-light m-2">
+  <form class="col-md-4 mx-auto border border-light" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <ng-container *ngIf="errorMessage">
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
       </div>
+    </ng-container>
+    <div class="form-group">
+      <!-- <small class="text-danger text-center font-weight-bold">{{errorMessage}}</small><br> -->
+      <label *ngIf="loginForm.get('login')">Username</label>
+      <input class="form-control" type="text" name="login" placeholder="Username" formControlName="login">
+      <small *ngIf="loginForm.get('login').touched  && !loginForm.get('login').valid"
+        class="text-center text-danger font-weight-bold">
+        User name is required and must be more than 3 characters<br><br>
+    </small>
+    </div>
+    <div class="form-group">
+      <label *ngIf="loginForm.get('password')">Password</label>
+      <input class="form-control" type="password" name="password" placeholder="Enter Password" formControlName="password">
+      <small *ngIf="loginForm.get('password').touched  && !loginForm.get('password').valid"
+        class="text-danger text-center font-weight-bold">
+        password is required and must be more than 6 characters<br><br>
+    </small>
+    </div>
+    <button text="login" type="submit" name="login" class="btn btn-success" value="submit">login</button>
+    
   </form>
 </div>

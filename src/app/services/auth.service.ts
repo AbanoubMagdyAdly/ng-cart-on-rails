@@ -18,8 +18,8 @@ export class AuthService {
     );
   }
 
-  registerUser(signUpData: { login: string, password: string, passwordConfirmation: string }): Observable<Response> {
-    return this.authService.registerAccount(signUpData).pipe(map(
+  registerUser(formData): Observable<Response> {
+    return this.authService.registerAccount(formData).pipe(map(
       res => {
         this.userSignedIn$.next(true);
         return res;

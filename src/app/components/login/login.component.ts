@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormControl, Validator, Validators, ControlValueAccessor } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { AngularTokenService } from 'angular-token';
 
 @Component({
   selector: 'app-login',
@@ -10,31 +9,31 @@ import { AngularTokenService } from 'angular-token';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  loginForm = new FormGroup({
-    email : new FormControl('', [Validators.required, Validators.email]),
-    password : new FormControl('', [Validators.required, Validators.minLength(3)])
+  errorMessage = '';
+  public loginForm = new FormGroup({
+    login: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
+  @Output() FormResult = new EventEmitter<any>();
 
-  constructor(private router: Router, private auth: AuthService, private tokenAuthService: AngularTokenService) {
-    if (this.auth.IsAuthenticated()) {
-      this.router.navigateByUrl('/home');
-    }
-   }
+  constructor(private router: Router, private auth: AuthService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmit() {
     if (this.loginForm.valid) {
-      // this.auth.authenticate(this.loginForm.controls.email.value)
-      this.tokenAuthService.signIn(this.loginForm.value).subscribe(
-        res => console.log(res),
-        err => console.log('err:', err)
+      this.auth.logInUser(this.loginForm.value).subscribe(
+        res => {
+          if (res.status === 200) {
+            this.FormResult.emit({ signedIn: true, res });
+          }
+        },
+        err => {
+          console.log('err:', err);
+          this.FormResult.emit({ signedIn: false, err });
+        }
       );
-      this.router.navigate(['/home']);
     }
   }
-
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,5 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'ecommerce';
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private http: HttpClient) {}
 }
