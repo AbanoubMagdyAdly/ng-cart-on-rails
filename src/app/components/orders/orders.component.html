@@ -1,3 +1,39 @@
-<p>
-  orders works!
-</p>
+<div class="container" style="overflow: auto;height: 300px;"
+  *ngIf="(orders === undefined || orders.length != 0); else empty">
+  <table id="cart" class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th style="width:50%">Order</th>
+        <th style="width:10%">Total Paid</th>
+        <th style="width:8%">States</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td data-th="order">
+          <div class="row">
+            <div class="col-sm-10">
+              <h5 class="nomargin">{{order.id}}</h5>
+            </div>
+          </div>
+        </td>
+        <td data-th="Price">{{ order.total_paid }}$</td>
+        <div *ngIf="(order.state_id === 1)">
+          <td data-th="States" class="text-center btn btn-secondary"> &nbsp; Pending &nbsp; </td>
+        </div>
+        <div *ngIf="(order.state_id === 2)">
+          <td data-th="States" class="text-center btn btn-primary">Confirmed</td>
+        </div>
+        <div *ngIf="(order.state_id === 3)">
+          <td data-th="States" class="text-center btn btn-success">Delivered &nbsp;</td>
+        </div>
+  </table>
+</div>
+<ng-template #empty>
+  <div class="container" style="height: 150px; width: 400px;">
+    <h1>
+      you don't have any orders
+    </h1>
+    <img src="../../../assets/empty-cart.png" width="70" height="70">
+  </div>
+</ng-template>
