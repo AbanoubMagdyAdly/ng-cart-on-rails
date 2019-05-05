@@ -19,9 +19,9 @@ export class ProductComponent {
   addToWishlist(product:Product) {
     let success = this.wishlistservice.addToWishlist(product);
     if(success)
-      this.toastr.successToastr(product.name + ' added to wish list ', null, { animate:"fade",toastTimeout:2500 ,showCloseButton:true });
+      this.toastr.successToastr(product.title + ' added to wish list ', null, { animate:"fade",toastTimeout:2500 ,showCloseButton:true });
     else
-      this.toastr.infoToastr(product.name + 'is already in your wish list ', null, { animate:"fade",toastTimeout:2500 ,showCloseButton:true });
+      this.toastr.infoToastr(product.title + 'is already in your wish list ', null, { animate:"fade",toastTimeout:2500 ,showCloseButton:true });
   }
   
 }

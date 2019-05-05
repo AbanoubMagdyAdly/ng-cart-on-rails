@@ -14,25 +14,25 @@ import { WishlistService } from 'src/app/services/wishlist.service';
 })
 export class ProductDetailsComponent extends ProductComponent implements OnInit {
 
-  public id:number;
-  public product:Product;
+  public id: number;
+  public product: Product;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute, 
-    private prodcutService: ProductsService, 
-    wishlistservice:WishlistService,
+    private route: ActivatedRoute,
+    private prodcutService: ProductsService,
+    wishlistservice: WishlistService,
     cartService: CartService,
     toastr: ToastrManager,
-  ) { 
+  ) {
     super(cartService, toastr, wishlistservice);
     this.id = this.route.params['value'].id;
-    let product = this.prodcutService.getSingleProduct(this.id);
-    
-    if(!product)
-      this.router.navigateByUrl("/404");
-
-    this.product = product
+    this.prodcutService
+      .getSingleProduct(this.id)
+      .subscribe(product => {
+        this.product = product
+      });
+      // if(!product) this.router.navigateByUrl("/404");
   }
 
   ngOnInit() {
