@@ -8,7 +8,7 @@
     <app-product-card fxLayout="row" fxLayoutAlign="space-between center"
       *ngFor="let product of shownProducts; let i=index" 
       [product]="product" 
-      [id]=i >
+      [id]="product['id']">
     </app-product-card>
   </div>
 </div>
