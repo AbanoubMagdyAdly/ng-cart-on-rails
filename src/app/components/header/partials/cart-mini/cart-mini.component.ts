@@ -8,8 +8,8 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./cart-mini.component.scss']
 })
 export class CartMiniComponent implements OnInit {
-  cartCount:number;
-  cart:Array<Object>;
+  cartCount: number;
+  cart: Product[];
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
@@ -18,8 +18,8 @@ export class CartMiniComponent implements OnInit {
       this.cart = cart;
     });
   }
-  
-  removeFromCart(product:Product){
+
+  removeFromCart(product: Product) {
     this.cartService.removeFromCart(product);
   }
 
