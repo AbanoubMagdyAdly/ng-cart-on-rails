@@ -6,7 +6,7 @@
                <div class="shopping-cart">
                  <ul class="shopping-cart-items">
                    <li class="clearfix" *ngFor="let cartProduct of cart| slice:0:5;">
-                     <img src="{{cartProduct.product.picUrl}}" alt="item1" />
+                     <img src="{{cartProduct.product.images[0]}}" alt="item1" />
                      <span class="item-name">{{cartProduct.product.name}}</span>
                      <span class="item-price">${{cartProduct.product.price}}</span>
                      <span class="item-quantity">Ordered: {{cartProduct.count}}</span>
