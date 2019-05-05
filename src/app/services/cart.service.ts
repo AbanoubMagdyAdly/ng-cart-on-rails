@@ -11,14 +11,14 @@ export class CartService {
   private cartTotalPrice: BehaviorSubject <number>;
 
 
-  constructor() { 
+  constructor() {
     this.cart           = new BehaviorSubject(this.getCartFromLocalStorage()  || [] );
     this.cartTotalPrice = new BehaviorSubject(0);
     this.updateCartTotalPrice();
   }
 
 
-  public manipulateCart(product: Product, increase:boolean = true) {
+  public manipulateCart(product: Product, increase: boolean = true) {
     this.updateProductCount(product, increase);
     this.updateLocalStorage();
     this.updateCartTotalPrice();
@@ -36,62 +36,67 @@ export class CartService {
   }
 
 
-  public getCartTotalPrice():Observable<any> {
+  public getCartTotalPrice(): Observable<any> {
     return this.cartTotalPrice.asObservable();
   }
 
 
   // halper functions
-  // ===========================================================================
+  // ==============================================================================
   //
-  
-  private updateProductCount(product: Product, increase:boolean = true){
+
+  private updateProductCount(product: Product, increase: boolean = true) {
     let cart = this.cart.value;
-    let prodIndex = cart.findIndex(
-      (cartProd) => cartProd.product.id == product.id
+    const prodIndex = cart.findIndex(
+      (cartProd) => cartProd.product.id === product.id
     );
 
-    if (prodIndex == -1 && increase)
+    if (prodIndex === -1 && increase) {
       cart.push({ product, count: 1 });
-    else
-      increase ? cart[prodIndex].count++: cart[prodIndex].count--;
+    } else {
+      increase ? cart[prodIndex].count++ : cart[prodIndex].count--;
+    }
 
-    if(!increase && cart[prodIndex].count == 0)
-      cart = cart.filter((c)=> c.product.id != cart[prodIndex].product.id)
+    if (!increase && cart[prodIndex].count === 0) {
+      cart = cart.filter((c) => c.product.id !== cart[prodIndex].product.id);
+    }
 
-    this.cart.next(cart)
+    this.cart.next(cart);
   }
 
 
   public removeSingleProduct(product: Product) {
-    let cart = this.cart.value.filter((p)=> p.product.id != product.id); 
-    this.cart.next(cart)
+    const cart = this.cart.value.filter((p) => p.product.id !== product.id);
+    this.cart.next(cart);
   }
 
 
   private updateCartTotalPrice() {
     let cartTotalPrice = 0;
 
-    this.cart.value.forEach(cartProduct=>{
+    this.cart.value.forEach(cartProduct => {
       cartTotalPrice += cartProduct.count * cartProduct.product.price;
-    })
+    });
 
-    this.cartTotalPrice.next(cartTotalPrice)
+    this.cartTotalPrice.next(cartTotalPrice);
   }
 
 
   private getCartFromLocalStorage() {
     let cart: [CartProduct];
 
-    try { cart = JSON.parse(window.localStorage.getItem("cart"))}
-    catch (error) { window.localStorage.setItem("cart", JSON.stringify([]) ) }
+    try {
+      cart = JSON.parse(window.localStorage.getItem('cart'));
+  } catch (error) {
+    window.localStorage.setItem('cart', JSON.stringify([]) );
+  }
 
-    return cart
+    return cart;
   }
 
 
   private updateLocalStorage() {
-    window.localStorage.setItem("cart", JSON.stringify(this.cart.value))
+    window.localStorage.setItem('cart', JSON.stringify(this.cart.value));
   }
 }
 

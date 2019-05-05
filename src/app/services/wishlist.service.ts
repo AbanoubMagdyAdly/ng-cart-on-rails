@@ -13,24 +13,24 @@ export class WishlistService {
   private wishlist: BehaviorSubject <Array<Product>>;
 
 
-  constructor() { 
+  constructor() {
     this.wishlist = new BehaviorSubject(this.getWishlistFromLocalStorage()  || [] );
   }
 
-  public addToWishlist(product: Product):boolean {
+  public addToWishlist(product: Product): boolean {
     let success = false;
-    let wishlist = this.wishlist.value;
-    let prodIndex = wishlist.findIndex(
-      (prod) => prod.id == product.id
+    const wishlist = this.wishlist.value;
+    const prodIndex = wishlist.findIndex(
+      (prod) => prod.id === product.id
     );
 
-    if (prodIndex == -1){
+    if (prodIndex === -1) {
       wishlist.push(product);
       success = true;
     }
 
     this.updateLocalStorage();
-    this.wishlist.next(wishlist)
+    this.wishlist.next(wishlist);
 
     return success;
   }
@@ -45,23 +45,26 @@ export class WishlistService {
   }
 
   // halper functions
-  // ===========================================================================
+  // =============================================================================
   //
   public removeSingleProduct(product: Product) {
-    let wishlist = this.wishlist.value.filter((p)=> p.id != product.id); 
-    this.wishlist.next(wishlist)
+    const wishlist = this.wishlist.value.filter((p) => p.id !== product.id);
+    this.wishlist.next(wishlist);
   }
 
   private getWishlistFromLocalStorage() {
     let wishlist: [Product];
 
-    try { wishlist = JSON.parse(window.localStorage.getItem("wishlist"))}
-    catch (error) { window.localStorage.setItem("wishlist", JSON.stringify([]) ) }
+    try {
+      wishlist = JSON.parse(window.localStorage.getItem('wishlist'));
+    } catch (error) {
+      window.localStorage.setItem('wishlist', JSON.stringify([]) );
+    }
 
-    return wishlist
+    return wishlist;
   }
 
   private updateLocalStorage() {
-    window.localStorage.setItem("wishlist", JSON.stringify(this.wishlist.value))
+    window.localStorage.setItem('wishlist', JSON.stringify(this.wishlist.value));
   }
 }
