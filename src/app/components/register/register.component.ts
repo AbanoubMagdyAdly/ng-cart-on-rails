@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
     uploadData.append('address', this.registerForm.get('address').value);
     uploadData.append('avatar', this.registerForm.get('avatar').value);
 
-    this.http.post('http://localhost:3000/users', uploadData).subscribe(res => console.log(res), err => console.log(err));
+    this.http.post('http://localhost:3000/users', uploadData).subscribe();
   }
 
   uploadDocument(event) {

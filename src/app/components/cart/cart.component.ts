@@ -29,11 +29,11 @@ export class CartComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.cartService.manipulateCart(product, true);
+    this.cartService.addCartRequest(product, true);
   }
 
   removeOneFromCart(product: Product) {
-    this.cartService.manipulateCart(product, false);
+    this.cartService.addCartRequest(product, false);
   }
 
   removeFromCart(product: Product) {

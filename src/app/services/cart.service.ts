@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 import { CartProduct } from '../models/cart';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +11,49 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class CartService {
   private cart: BehaviorSubject <Array<CartProduct>>;
   private cartTotalPrice: BehaviorSubject <number>;
+  private cartEndPoint;
 
-
-  constructor() {
+  constructor(private http: HttpClient, auth: AuthService) {
     this.cart           = new BehaviorSubject(this.getCartFromLocalStorage()  || [] );
     this.cartTotalPrice = new BehaviorSubject(0);
+    this.cartEndPoint = 'http://localhost:3000/carts';
     this.updateCartTotalPrice();
   }
 
+  public addCartRequest(product, increase = true): Observable<any> {
+    // return fetch(this.cartEndPoint, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ product_id: product.id })
+    // });
+    return this.http.post(this.cartEndPoint, {
+      headers: product,
+      observe: 'response'
+    });
+  }
+  public removeSingleProduct(product: Product) {
+    return fetch(`${this.cartEndPoint}/${product.id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ product_id: product.id })
+    });
+  }
 
   public manipulateCart(product: Product, increase: boolean = true) {
     this.updateProductCount(product, increase);
-    this.updateLocalStorage();
     this.updateCartTotalPrice();
   }
 
-
   public removeFromCart(product: Product) {
     this.removeSingleProduct(product);
-    this.updateLocalStorage();
+    // Todo Update this
+    // this.updateLocalStorage();
     this.updateCartTotalPrice();
   }
 
@@ -43,10 +69,6 @@ export class CartService {
   /*
     Helper Functions
   */
-
-  // halper functions
-  // ==============================================================================
-  //
 
   private updateProductCount(product: Product, increase: boolean = true) {
     let cart = this.cart.value;
@@ -68,10 +90,10 @@ export class CartService {
   }
 
 
-  public removeSingleProduct(product: Product) {
-    const cart = this.cart.value.filter((p) => p.product.id !== product.id);
-    this.cart.next(cart);
-  }
+  // public removeSingleProduct(product: Product) {
+  //   const cart = this.cart.value.filter((p) => p.product.id !== product.id);
+  //   this.cart.next(cart);
+  // }
 
 
   private updateCartTotalPrice() {
@@ -89,17 +111,13 @@ export class CartService {
     let cart: [CartProduct];
 
     try {
-      cart = JSON.parse(window.localStorage.getItem("cart"));
+      cart = JSON.parse(window.localStorage.getItem('cart'));
     } catch (error) {
-      window.localStorage.setItem("cart", JSON.stringify([]));
+      window.localStorage.setItem('cart', JSON.stringify([]));
     }
 
     return cart;
   }
 
-
-  private updateLocalStorage() {
-    window.localStorage.setItem("cart", JSON.stringify(this.cart.value));
-  }
 }
 
