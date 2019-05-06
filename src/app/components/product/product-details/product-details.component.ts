@@ -6,6 +6,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ProductComponent } from '../product.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { WishlistService } from 'src/app/services/wishlist.service';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 @Component({
   selector: 'app-product-details',
@@ -18,16 +19,18 @@ export class ProductDetailsComponent extends ProductComponent implements OnInit 
   public product: Product;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
-    private prodcutService: ProductsService,
+    private productService: ProductsService,
+    router: Router,
     wishlistservice: WishlistService,
     cartService: CartService,
     toastr: ToastrManager,
+    guard: AuthGuard,
+
   ) {
-    super(cartService, toastr, wishlistservice);
+    super(cartService, toastr, wishlistservice, guard, router);
     this.id = this.route.params['value'].id;
-    this.prodcutService
+    this.productService
       .getSingleProduct(this.id)
       .subscribe(product => {
         this.product = product;
