@@ -33,6 +33,7 @@ import {
   MatTableModule, MatGridListModule, MatPaginatorModule
  } from '@angular/material';
 import { OrdersComponent } from './components/orders/orders.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { OrdersComponent } from './components/orders/orders.component';
     ToastrModule.forRoot(),
     MatPaginatorModule
   ],
-  providers: [ProductsService, CartService, WishlistService, AngularTokenModule, AuthService],
+  providers: [ProductsService, CartService, WishlistService, AngularTokenModule, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
