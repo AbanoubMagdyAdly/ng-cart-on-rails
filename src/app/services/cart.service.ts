@@ -44,20 +44,24 @@ export class CartService {
     Helper Functions
   */
 
+  // halper functions
+  // ==============================================================================
+  //
+
   private updateProductCount(product: Product, increase: boolean = true) {
     let cart = this.cart.value;
-    const productIndex = cart.findIndex(
+    const prodIndex = cart.findIndex(
       (cartProd) => cartProd.product.id === product.id
     );
 
-    if (productIndex === -1 && increase) {
+    if (prodIndex === -1 && increase) {
       cart.push({ product, count: 1 });
     } else {
-      increase ? cart[productIndex].count++ : cart[productIndex].count--;
+      increase ? cart[prodIndex].count++ : cart[prodIndex].count--;
     }
 
-    if (!increase && cart[productIndex].count === 0) {
-      cart = cart.filter((c) => c.product.id !== cart[productIndex].product.id);
+    if (!increase && cart[prodIndex].count === 0) {
+      cart = cart.filter((c) => c.product.id !== cart[prodIndex].product.id);
     }
 
     this.cart.next(cart);

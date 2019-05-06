@@ -32,6 +32,7 @@ import {
   MatIconModule, MatListModule, MatInputModule, MatCardModule,
   MatTableModule, MatGridListModule, MatPaginatorModule
  } from '@angular/material';
+import { OrdersComponent } from './components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {
     NotfoundComponent,
     WishlistComponent,
     InputComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,

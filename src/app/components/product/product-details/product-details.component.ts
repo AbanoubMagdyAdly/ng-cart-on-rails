@@ -30,7 +30,7 @@ export class ProductDetailsComponent extends ProductComponent implements OnInit 
     this.prodcutService
       .getSingleProduct(this.id)
       .subscribe(product => {
-        this.product = product
+        this.product = product;
       });
       // if(!product) this.router.navigateByUrl("/404");
   }

@@ -13,19 +13,19 @@ import { WishlistService } from 'src/app/services/wishlist.service';
 })
 export class ProductCardComponent extends ProductComponent implements OnInit {
   @Input('product') product: {};
-  @Input('id') id:number;
+  @Input('id') id: number;
 
   constructor(
     private router: Router,
-    toastr: ToastrManager, cartService: CartService, wishlistservice:WishlistService,
-  ) { 
-    super(cartService,toastr,wishlistservice);
+    toastr: ToastrManager, cartService: CartService, wishlistservice: WishlistService,
+  ) {
+    super(cartService, toastr, wishlistservice);
   }
-  
+
   ngOnInit() {
   }
 
-  showProduct(id:number) {
-    this.router.navigate(["/products", id]);
+  showProduct(id: number) {
+    this.router.navigate(['/products', id]);
   }
 }

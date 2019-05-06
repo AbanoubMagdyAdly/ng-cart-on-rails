@@ -21,6 +21,9 @@
           <app-wishlist></app-wishlist>
         </span>
         <ng-container *ngIf="(authService.userSignedIn$ | async)">
+            <span class="nav-item">
+                <a class="nav-link text-white" [routerLink]="['/orders']">Track Orders</a>
+            </span>
           <span class="nav-item">
               <a class="nav-link text-white" (click)="onLogout()">Logout</a>
           </span>

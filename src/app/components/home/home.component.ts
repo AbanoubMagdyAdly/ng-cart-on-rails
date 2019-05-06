@@ -10,17 +10,17 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  allProducts:Product[];
-  shownProducts:Product[];
+  allProducts: Product[];
+  shownProducts: Product[];
   length;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
 
   constructor(private productsService: ProductsService) {
-    this.productsService.getProducts().subscribe(data=>{
-      this.allProducts = data
-      this.shownProducts = this.allProducts.slice(0,10);
+    this.productsService.getProducts().subscribe(data => {
+      this.allProducts = data;
+      this.shownProducts = this.allProducts.slice(0, 10);
       this.length = this.allProducts.length;
     });
   }
@@ -28,10 +28,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateShownProducts(){
-    let lowerLimit = (this.pageEvent.pageIndex) * this.pageEvent.pageSize;
-    let upperLimit = (this.pageEvent.pageIndex+1) *this.pageEvent.pageSize;
-    this.shownProducts = this.allProducts.slice(lowerLimit, upperLimit)
+  updateShownProducts() {
+    const lowerLimit = (this.pageEvent.pageIndex) * this.pageEvent.pageSize;
+    const upperLimit = (this.pageEvent.pageIndex + 1) * this.pageEvent.pageSize;
+    this.shownProducts = this.allProducts.slice(lowerLimit, upperLimit);
   }
   // MatPaginator Output
   setPageSizeOptions(setPageSizeOptionsInput: string) {

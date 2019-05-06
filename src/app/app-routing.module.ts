@@ -6,6 +6,7 @@ import { ProductDetailsComponent } from "./components/product/product-details/pr
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   {path: '', redirectTo:'home', pathMatch: 'full'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
   {path: 'cart', component: CartComponent},
+  {path: 'orders', component: OrdersComponent},
   {path: '**', component: NotfoundComponent},
 ];
 
