@@ -17,7 +17,7 @@ export class ProductComponent {
 
   onAddToCart(product: Product) {
     if (this.guard.canActivate()) {
-      this.cartService.addCartRequest(product, true)
+      this.cartService.manipulateCartRequest(product, true)
         .subscribe(res => {
           console.log(res);
           this.toastr.successToastr(`${product.id} was added to cart `, null,

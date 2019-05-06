@@ -21,6 +21,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.cartService.getCart().subscribe(cart => {
       this.cart = cart;
+      console.log(cart)
       this.dataSource = cart;
     });
     this.cartService.getCartTotalPrice().subscribe(totalPrice =>
@@ -29,15 +30,15 @@ export class CartComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.cartService.addCartRequest(product, true);
+    this.cartService.manipulateCartRequest(product, true).subscribe();
   }
 
   removeOneFromCart(product: Product) {
-    this.cartService.addCartRequest(product, false);
+    this.cartService.manipulateCartRequest(product, false).subscribe();
   }
 
-  removeFromCart(product: Product) {
-    this.cartService.removeFromCart(product);
+  removeFromCart(id: number) {
+    this.cartService.removeFromCart(id);
   }
 
 }

@@ -14,46 +14,35 @@ export class CartService {
   private cartEndPoint;
 
   constructor(private http: HttpClient, auth: AuthService) {
-    this.cart           = new BehaviorSubject(this.getCartFromLocalStorage()  || [] );
-    this.cartTotalPrice = new BehaviorSubject(0);
     this.cartEndPoint = 'http://localhost:3000/carts';
+    this.cart           = new BehaviorSubject(this.getCartFromDataBase()  || [] );
+    this.cartTotalPrice = new BehaviorSubject(0);
     this.updateCartTotalPrice();
   }
 
-  public addCartRequest(product, increase = true): Observable<any> {
-    // return fetch(this.cartEndPoint, {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ product_id: product.id })
-    // });
-    return this.http.post(this.cartEndPoint, {
-      headers: product,
-      observe: 'response'
-    });
+  public manipulateCartRequest(product, increase = true): Observable<any> {
+    if (increase) {
+      return this.http.post<Observable<any>>(this.cartEndPoint, {
+        product_id: product.id,
+        increase: true,
+        observe: 'response'
+      });
+    } else if (!increase) {
+      return this.http.post<Observable<any>>(this.cartEndPoint, {
+        product_id: product.id,
+        increase: false,
+        observe: 'response'
+      });
+    }
   }
-  public removeSingleProduct(product: Product) {
-    return fetch(`${this.cartEndPoint}/${product.id}`, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ product_id: product.id })
-    });
+  public removeFromCart(id: number) {
+    this.http.delete(`${this.cartEndPoint}/${id}`).subscribe() ;
+    this.updateCartTotalPrice();
+
   }
 
   public manipulateCart(product: Product, increase: boolean = true) {
     this.updateProductCount(product, increase);
-    this.updateCartTotalPrice();
-  }
-
-  public removeFromCart(product: Product) {
-    this.removeSingleProduct(product);
-    // Todo Update this
-    // this.updateLocalStorage();
     this.updateCartTotalPrice();
   }
 
@@ -89,13 +78,6 @@ export class CartService {
     this.cart.next(cart);
   }
 
-
-  // public removeSingleProduct(product: Product) {
-  //   const cart = this.cart.value.filter((p) => p.product.id !== product.id);
-  //   this.cart.next(cart);
-  // }
-
-
   private updateCartTotalPrice() {
     let cartTotalPrice = 0;
 
@@ -107,17 +89,15 @@ export class CartService {
   }
 
 
-  private getCartFromLocalStorage() {
-    let cart: [CartProduct];
-
-    try {
-      cart = JSON.parse(window.localStorage.getItem('cart'));
-    } catch (error) {
-      window.localStorage.setItem('cart', JSON.stringify([]));
-    }
-
+  private getCartFromDataBase() {
+// tslint:disable-next-line: prefer-const
+    let cart: [] = [];
+    this.http.get<[]>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
+      data.body.forEach((product) => {
+        console.log(product);
+      });
+    });
     return cart;
   }
 
 }
-
