@@ -4,6 +4,7 @@ import { MustMatch } from 'src/app/models/password-validation';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -47,7 +48,8 @@ export class RegisterComponent implements OnInit {
     uploadData.append('address', this.registerForm.get('address').value);
     uploadData.append('avatar', this.registerForm.get('avatar').value);
 
-    this.http.post('http://localhost:3000/users', uploadData).subscribe();
+    this.http.post('http://localhost:3000/users', uploadData).subscribe(
+      res => this.router.navigate(['/login']), err => console.log(err));
   }
 
   uploadDocument(event) {
@@ -59,5 +61,4 @@ export class RegisterComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-
 }
