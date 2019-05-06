@@ -23,8 +23,8 @@ export class CartComponent implements OnInit {
       this.cart = cart;
       this.dataSource = cart;
     });
-    this.cartService.getCartTotalPrice().subscribe(
-      totalPrice => this.totalPrice = totalPrice
+    this.cartService.getCartTotalPrice().subscribe(totalPrice =>
+      this.totalPrice = totalPrice
     );
   }
 
