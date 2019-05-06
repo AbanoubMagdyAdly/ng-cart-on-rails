@@ -27,10 +27,13 @@ export class LoginComponent implements OnInit {
         res => {
           if (res.status === 200) {
             this.FormResult.emit({ signedIn: true, res });
+            this.router.navigate(['/home']);
           }
         },
         err => {
-          console.log('err:', err);
+          if (err.status === 401) {
+            this.errorMessage = 'Invalid email or password';
+          }
           this.FormResult.emit({ signedIn: false, err });
         }
       );
