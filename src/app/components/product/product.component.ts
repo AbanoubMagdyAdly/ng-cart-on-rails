@@ -20,7 +20,7 @@ export class ProductComponent {
       this.cartService.manipulateCartRequest(product, true)
         .subscribe(res => {
           console.log(res);
-          this.cartService.getCartFromDataBase();
+          this.cartService.getCartFromDataBase()
           this.toastr.successToastr(`One ${product.title} was added to cart `, null,
             { animate: 'fade', toastTimeout: 2500, showCloseButton: true });
 
