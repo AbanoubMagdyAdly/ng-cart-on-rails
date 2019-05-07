@@ -47,9 +47,8 @@ export class CartComponent implements OnInit {
     console.log(coupon_code)
     this.http.post(this.ordersEndpoint,{
       coupon_code : coupon_code
-    }).subscribe(test => console.log(test))
-
-    this.router.navigate(['orders'])
+    }).subscribe(res => this.cartService.getCartFromDataBase());
+    this.router.navigate(['home']);
   }
 
 }
