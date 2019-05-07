@@ -13,7 +13,7 @@ export class CartComponent implements OnInit {
   totalPrice = 0;
   cart: Array<CartProduct>;
 
-  displayedColumns: string[] = ['picUrl', 'id', 'name', 'addRemove', 'price', 'count', 'totalPrice', 'delete'];
+  displayedColumns: string[] = ['image', 'id', 'title', 'addRemove', 'price', 'quantity', 'totalPrice', 'delete'];
   dataSource;
 
   constructor(private cartService: CartService) { }
@@ -21,8 +21,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.cartService.getCart().subscribe(cart => {
       this.cart = cart;
-      console.log(cart)
-      this.dataSource = cart;
+      this.dataSource = this.cart;
     });
     this.cartService.getCartTotalPrice().subscribe(totalPrice =>
       this.totalPrice = totalPrice
@@ -30,11 +29,11 @@ export class CartComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.cartService.manipulateCartRequest(product, true).subscribe();
+    this.cartService.manipulateCartRequest(product, true);
   }
 
   removeOneFromCart(product: Product) {
-    this.cartService.manipulateCartRequest(product, false).subscribe();
+    this.cartService.manipulateCartRequest(product, false);
   }
 
   removeFromCart(id: number) {

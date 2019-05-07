@@ -20,7 +20,7 @@ export class CartMiniComponent implements OnInit {
   }
 
   removeFromCart(product: Product) {
-    this.cartService.removeFromCart(product);
+    this.cartService.removeFromCart(4);
   }
 
 }

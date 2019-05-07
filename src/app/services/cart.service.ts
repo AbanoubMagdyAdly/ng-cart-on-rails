@@ -15,35 +15,34 @@ export class CartService {
 
   constructor(private http: HttpClient, auth: AuthService) {
     this.cartEndPoint = 'http://localhost:3000/carts';
-    this.cart           = new BehaviorSubject(this.getCartFromDataBase()  || [] );
+    this.cart           = new BehaviorSubject([]);
     this.cartTotalPrice = new BehaviorSubject(0);
+    this.getCartFromDataBase();
     this.updateCartTotalPrice();
   }
 
   public manipulateCartRequest(product, increase = true): Observable<any> {
+    let response;
     if (increase) {
-      return this.http.post<Observable<any>>(this.cartEndPoint, {
+      response = this.http.post<Observable<any>>(this.cartEndPoint, {
         product_id: product.id,
         increase: true,
         observe: 'response'
       });
     } else if (!increase) {
-      return this.http.post<Observable<any>>(this.cartEndPoint, {
+      response = this.http.post<Observable<any>>(this.cartEndPoint, {
         product_id: product.id,
         increase: false,
         observe: 'response'
       });
     }
+
+    response.subscribe(() => this.getCartFromDataBase());
+    return response;
   }
+
   public removeFromCart(id: number) {
-    this.http.delete(`${this.cartEndPoint}/${id}`).subscribe() ;
-    this.updateCartTotalPrice();
-
-  }
-
-  public manipulateCart(product: Product, increase: boolean = true) {
-    this.updateProductCount(product, increase);
-    this.updateCartTotalPrice();
+    this.http.delete(`${this.cartEndPoint}/${id}`).subscribe(() => this.getCartFromDataBase()) ;
   }
 
   public getCart(): Observable<any> {
@@ -59,30 +58,11 @@ export class CartService {
     Helper Functions
   */
 
-  private updateProductCount(product: Product, increase: boolean = true) {
-    let cart = this.cart.value;
-    const prodIndex = cart.findIndex(
-      (cartProd) => cartProd.product.id === product.id
-    );
-
-    if (prodIndex === -1 && increase) {
-      cart.push({ product, count: 1 });
-    } else {
-      increase ? cart[prodIndex].count++ : cart[prodIndex].count--;
-    }
-
-    if (!increase && cart[prodIndex].count === 0) {
-      cart = cart.filter((c) => c.product.id !== cart[prodIndex].product.id);
-    }
-
-    this.cart.next(cart);
-  }
-
   private updateCartTotalPrice() {
     let cartTotalPrice = 0;
 
     this.cart.value.forEach(cartProduct => {
-      cartTotalPrice += cartProduct.count * cartProduct.product.price;
+      cartTotalPrice += cartProduct.quantity * cartProduct.product.price;
     });
 
     this.cartTotalPrice.next(cartTotalPrice);
@@ -90,14 +70,14 @@ export class CartService {
 
 
   private getCartFromDataBase() {
-// tslint:disable-next-line: prefer-const
-    let cart: [] = [];
-    this.http.get<[]>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
-      data.body.forEach((product) => {
-        console.log(product);
+    this.http.get<BehaviorSubject<Array<CartProduct>>>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
+      let cart = [];
+      data.body.forEach(cartRecord => {
+        cart.push(cartRecord);
       });
+      this.cart.next(cart);
+      this.updateCartTotalPrice();
     });
-    return cart;
   }
 
 }
