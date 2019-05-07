@@ -58,7 +58,13 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
                 <!-- <div href="#" class="button mat-elevation-z3">Total Price: {{totalPrice}}</div> -->
-                <div href="#" class=" footer-row mat-elevation-z3">Total Price: {{totalPrice}}</div>
-                <a href="#" class="button mat-elevation-z3">Checkout<mat-icon class="material-icons"> beenhere</mat-icon></a>
+                <div href="#" class="footer-row mat-elevation-z3">Total Price: {{totalPrice}}</div>
+                <div class="input-group mb-3 mat-elevation-z3 w-25">
+                  <div class="text-center input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Coupon Code</span>
+                  </div>
+                  <input type="text" class="form-control" aria-label="Default" [(ngModel)]='coupon_code' [value]='coupon_code' aria-describedby="inputGroup-sizing-default">
+                </div>
+                <a  class="button mat-elevation-z3" (click)="checkout(coupon_code)">Checkout<mat-icon class="material-icons"> beenhere</mat-icon></a>
       </div>
     </div>
