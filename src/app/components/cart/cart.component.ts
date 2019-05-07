@@ -32,11 +32,11 @@ export class CartComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.cartService.manipulateCartRequest(product, true);
+    this.cartService.manipulateCartRequest(product, true).subscribe(()=>this.cartService.getCartFromDataBase());
   }
 
   removeOneFromCart(product: Product) {
-    this.cartService.manipulateCartRequest(product, false);
+    this.cartService.manipulateCartRequest(product, false).subscribe(()=>this.cartService.getCartFromDataBase());
   }
 
   removeFromCart(id: number) {
