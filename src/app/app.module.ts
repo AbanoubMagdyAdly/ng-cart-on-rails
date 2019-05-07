@@ -34,6 +34,7 @@ import {
  } from '@angular/material';
 import { OrdersComponent } from './components/orders/orders.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AuthGuard } from './guards/auth.guard';
     WishlistComponent,
     InputComponent,
     OrdersComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

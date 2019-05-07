@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import * as jsonProducts from '../../assets/json/products';
 import { Product } from '../models/product.js';
 
 @Injectable({
@@ -10,20 +9,24 @@ import { Product } from '../models/product.js';
 export class ProductsService {
 
   private products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
+  private filteredProducts: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   private product: BehaviorSubject<Product> = new BehaviorSubject(null);
   private apiIndex = 'http://localhost:3000/products';
   private apiShow = 'http://localhost:3000/products/';
 
   constructor(private http: HttpClient) {
-    this.http
-      .get<Product[]>(this.apiIndex)
-      .subscribe(products => {
-        products = products.map(product => this.mapProduct(product));
-        this.products.next(products);
-      });
+    this.http.get<Product[]>(this.apiIndex).subscribe(products => {
+      products = products.map(product => this.mapProduct(product));
+      this.products.next(products);
+    });
   }
 
   getProducts(): BehaviorSubject<Product[]> {return this.products; }
+
+  getFilteredProducts(query) {
+    this.http.get<Product[]>(`${this.apiIndex}`, { params: { query } })
+      .subscribe(res => this.products.next(res.map(prod => this.mapProduct(prod))));
+  }
 
   getSingleProduct(id: number): BehaviorSubject<Product> {
     this.http

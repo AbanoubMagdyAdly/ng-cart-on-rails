@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
   {path: 'cart', component: CartComponent},
+  {path: 'search', component: SearchComponent},
   {path: 'orders', component: OrdersComponent, canActivate: [AuthGuard]},
   {path: '**', component: NotfoundComponent},
 ];
