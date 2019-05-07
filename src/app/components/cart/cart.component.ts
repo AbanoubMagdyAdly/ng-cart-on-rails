@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product';
-import { CartProduct } from 'src/app/models/cart';
+import { CartItem } from 'src/app/models/cart';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -12,10 +12,11 @@ import { Router } from '@angular/router';
 })
 
 export class CartComponent implements OnInit {
-  totalPrice = 0;
-  cart: Array<CartProduct>;
   private ordersEndpoint = 'http://localhost:3000/orders';
-  displayedColumns: string[] = ['picUrl', 'id', 'name', 'addRemove', 'price', 'count', 'totalPrice', 'delete'];
+  totalPrice = 0;
+  cart: Array<CartItem>;
+
+  displayedColumns: string[] = ['image', 'id', 'title', 'addRemove', 'price', 'quantity', 'totalPrice', 'delete'];
   dataSource;
 
   constructor(private cartService: CartService,private http: HttpClient,private router: Router) { }
@@ -23,8 +24,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.cartService.getCart().subscribe(cart => {
       this.cart = cart;
-      console.log(cart)
-      this.dataSource = cart;
+      this.dataSource = this.cart;
     });
     this.cartService.getCartTotalPrice().subscribe(totalPrice =>
       this.totalPrice = totalPrice
@@ -32,11 +32,11 @@ export class CartComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.cartService.manipulateCartRequest(product, true).subscribe();
+    this.cartService.manipulateCartRequest(product, true);
   }
 
   removeOneFromCart(product: Product) {
-    this.cartService.manipulateCartRequest(product, false).subscribe();
+    this.cartService.manipulateCartRequest(product, false);
   }
 
   removeFromCart(id: number) {

@@ -5,12 +5,12 @@
            <div class="container">
                <div class="shopping-cart">
                  <ul class="shopping-cart-items">
-                   <li class="clearfix" *ngFor="let cartProduct of cart| slice:0:5;">
-                     <img src="{{cartProduct.product.images[0]}}" alt="item1" />
-                     <span class="item-name">{{cartProduct.product.name}}</span>
-                     <span class="item-price">${{cartProduct.product.price}}</span>
-                     <span class="item-quantity">Ordered: {{cartProduct.count}}</span>
-                     <button class="item-delete btn btn-danger" (click)="removeFromCart(cartProduct.product)">&#x2718; </button>
+                   <li class="clearfix" *ngFor="let cartItem of cart| slice:0:5;">
+                     <img src="{{cartItem.product.product_images[0]}}" alt="item1" />
+                     <span class="item-name">{{cartItem.product.title}}</span>
+                     <span class="item-price">${{cartItem.product.price}}</span>
+                     <span class="item-quantity">Ordered: {{cartItem.quantity}}</span>
+                     <button class="item-delete btn btn-danger" (click)="removeFromCart(cartItem.id)">&#x2718; </button>
                    </li>
                  </ul>
                  <a [routerLink]="['/cart']" class="button">View Cart</a>

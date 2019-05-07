@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
-import { Product } from 'src/app/models/product';
+import { CartItem } from '../../../../models/cart';
 
 @Component({
   selector: 'app-cart-mini',
@@ -9,7 +9,7 @@ import { Product } from 'src/app/models/product';
 })
 export class CartMiniComponent implements OnInit {
   cartCount: number;
-  cart: Product[];
+  cart: CartItem[];
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
@@ -19,8 +19,8 @@ export class CartMiniComponent implements OnInit {
     });
   }
 
-  removeFromCart(product: Product) {
-    this.cartService.removeFromCart(product);
+  removeFromCart(id: number) {
+    this.cartService.removeFromCart(id);
   }
 
 }
