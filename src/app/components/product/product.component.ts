@@ -20,12 +20,13 @@ export class ProductComponent {
       this.cartService.manipulateCartRequest(product, true)
         .subscribe(res => {
           console.log(res);
-          this.toastr.successToastr(`${product.id} was added to cart `, null,
+          this.cartService.getCartFromDataBase();
+          this.toastr.successToastr(`One ${product.title} was added to cart `, null,
             { animate: 'fade', toastTimeout: 2500, showCloseButton: true });
 
         }, err => {
           console.table(err, err.status);
-          this.toastr.errorToastr(`${product.title} is already in your cart`, null,
+          this.toastr.errorToastr(`${product.title} exceeded allowed quantity`, null,
             { animate: 'fade', toastTimeout: 2500, showCloseButton: true });
         });
     } else {
