@@ -70,7 +70,7 @@ export class CartService {
 
 
   private getCartFromDataBase() {
-    this.http.get<BehaviorSubject<Array<cartItem>>>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
+    this.http.get<BehaviorSubject<Array<CartItem>>>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
       let cart = [];
       data.body.forEach(cartRecord => {
         cart.push(cartRecord);

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product';
 import { CartItem } from 'src/app/models/cart';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -10,13 +12,14 @@ import { CartItem } from 'src/app/models/cart';
 })
 
 export class CartComponent implements OnInit {
+  private ordersEndpoint = 'http://localhost:3000/orders';
   totalPrice = 0;
   cart: Array<CartItem>;
 
   displayedColumns: string[] = ['image', 'id', 'title', 'addRemove', 'price', 'quantity', 'totalPrice', 'delete'];
   dataSource;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,private http: HttpClient,private router: Router) { }
 
   ngOnInit() {
     this.cartService.getCart().subscribe(cart => {
@@ -38,6 +41,15 @@ export class CartComponent implements OnInit {
 
   removeFromCart(id: number) {
     this.cartService.removeFromCart(id);
+  }
+
+  checkout(coupon_code){
+    console.log(coupon_code)
+    this.http.post(this.ordersEndpoint,{
+      coupon_code : coupon_code
+    }).subscribe(test => console.log(test))
+
+    this.router.navigate(['orders'])
   }
 
 }
