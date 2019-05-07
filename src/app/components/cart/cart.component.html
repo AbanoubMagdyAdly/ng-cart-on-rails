@@ -7,50 +7,50 @@
 
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> Id. </th>
-                <td mat-cell *matCellDef="let cartProduct">{{cartProduct.id}} </td>
+                <td mat-cell *matCellDef="let cartItem">{{cartItem.id}} </td>
               </ng-container>
 
               <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef> title. </th>
-                <td mat-cell *matCellDef="let cartProduct"> {{cartProduct.product.title}} </td>
+                <td mat-cell *matCellDef="let cartItem"> {{cartItem.product.title}} </td>
               </ng-container>
 
               <ng-container matColumnDef="image">
                 <th mat-header-cell *matHeaderCellDef> Product </th>
-                <td mat-cell *matCellDef="let cartProduct">
-                  <img class="prodImg" src='{{cartProduct.product.product_images[0]}}' >
+                <td mat-cell *matCellDef="let cartItem">
+                  <img class="prodImg" src='{{cartItem.product.product_images[0]}}' >
                 </td>
               </ng-container>
 
               <ng-container matColumnDef="addRemove">
                   <th mat-header-cell *matHeaderCellDef> Add/Remove </th>
-                  <td mat-cell *matCellDef="let cartProduct">
+                  <td mat-cell *matCellDef="let cartItem">
                       <ul class="pagination">
-                        <li><button (click)="removeOneFromCart(cartProduct.product)" class="page-link text-danger removeOneFromCart">-</button></li>
-                        <li><button (click)="addToCart(cartProduct.product)" class="page-link addOneToCart">+</button></li>
+                        <li><button (click)="removeOneFromCart(cartItem.product)" class="page-link text-danger removeOneFromCart">-</button></li>
+                        <li><button (click)="addToCart(cartItem.product)" class="page-link addOneToCart">+</button></li>
                       </ul>
                   </td>
                 </ng-container>
 
               <ng-container matColumnDef="quantity">
                 <th mat-header-cell *matHeaderCellDef> Ordered </th>
-                <td mat-cell *matCellDef="let cartProduct">{{cartProduct.quantity}}</td>
+                <td mat-cell *matCellDef="let cartItem">{{cartItem.quantity}}</td>
               </ng-container>
 
               <ng-container matColumnDef="totalPrice">
                 <th mat-header-cell *matHeaderCellDef> Total Price </th>
-                <td mat-cell *matCellDef="let cartProduct">${{cartProduct.quantity* cartProduct.product.price | number:'1.0-0'}}</td>
+                <td mat-cell *matCellDef="let cartItem">${{cartItem.quantity* cartItem.product.price | number:'1.0-0'}}</td>
               </ng-container>
 
               <ng-container matColumnDef="price">
                 <th mat-header-cell *matHeaderCellDef> Price. </th>
-                <td mat-cell *matCellDef="let cartProduct">${{cartProduct.product.price}} </td>
+                <td mat-cell *matCellDef="let cartItem">${{cartItem.product.price}} </td>
               </ng-container>
 
               <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef> Remove </th>
-                <td mat-cell *matCellDef="let cartProduct">
-                    <button class="item-delete btn btn-danger" (click)="removeFromCart(cartProduct.id)">&#x2718; </button>
+                <td mat-cell *matCellDef="let cartItem">
+                    <button class="item-delete btn btn-danger" (click)="removeFromCart(cartItem.id)">&#x2718; </button>
                 </td>
               </ng-container>
 

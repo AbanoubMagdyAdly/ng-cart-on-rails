@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Product } from 'src/app/models/product';
-import { CartProduct } from 'src/app/models/cart';
+import { cartItem } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +11,7 @@ import { CartProduct } from 'src/app/models/cart';
 
 export class CartComponent implements OnInit {
   totalPrice = 0;
-  cart: Array<CartProduct>;
+  cart: Array<cartItem>;
 
   displayedColumns: string[] = ['image', 'id', 'title', 'addRemove', 'price', 'quantity', 'totalPrice', 'delete'];
   dataSource;

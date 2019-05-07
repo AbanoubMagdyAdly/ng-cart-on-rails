@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { CartProduct } from '../models/cart';
+import { cartItem } from '../models/cart';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class CartService {
-  private cart: BehaviorSubject <Array<CartProduct>>;
+  private cart: BehaviorSubject <Array<cartItem>>;
   private cartTotalPrice: BehaviorSubject <number>;
   private cartEndPoint;
 
@@ -61,8 +61,8 @@ export class CartService {
   private updateCartTotalPrice() {
     let cartTotalPrice = 0;
 
-    this.cart.value.forEach(cartProduct => {
-      cartTotalPrice += cartProduct.quantity * cartProduct.product.price;
+    this.cart.value.forEach(cartItem => {
+      cartTotalPrice += cartItem.quantity * cartItem.product.price;
     });
 
     this.cartTotalPrice.next(cartTotalPrice);
@@ -70,7 +70,7 @@ export class CartService {
 
 
   private getCartFromDataBase() {
-    this.http.get<BehaviorSubject<Array<CartProduct>>>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
+    this.http.get<BehaviorSubject<Array<cartItem>>>(this.cartEndPoint, {observe: 'response'}).subscribe(data => {
       let cart = [];
       data.body.forEach(cartRecord => {
         cart.push(cartRecord);
