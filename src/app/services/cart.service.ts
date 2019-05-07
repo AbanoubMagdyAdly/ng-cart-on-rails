@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { cartItem } from '../models/cart';
+import { CartItem } from '../models/cart';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class CartService {
-  private cart: BehaviorSubject <Array<cartItem>>;
+  private cart: BehaviorSubject <Array<CartItem>>;
   private cartTotalPrice: BehaviorSubject <number>;
   private cartEndPoint;
 
