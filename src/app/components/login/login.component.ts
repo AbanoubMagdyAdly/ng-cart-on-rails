@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validator, Validators, ControlValueAccessor } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   @Output() FormResult = new EventEmitter<any>();
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(private router: Router, private auth: AuthService, private cart: CartService) {}
 
   ngOnInit() {}
 
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
         res => {
           if (res.status === 200) {
             this.FormResult.emit({ signedIn: true, res });
+            this.cart.getCartFromDataBase();
             this.router.navigate(['/home']);
           }
         },

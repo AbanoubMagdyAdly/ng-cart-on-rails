@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AngularTokenService } from 'angular-token';
 import { map } from 'rxjs/operators';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
